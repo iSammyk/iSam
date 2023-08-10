@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+     <h2 id="dispo"> 
+       
+    </h2>
+    <button onclick="prev()">
+        prev
+    </button>
+    <button onclick="next()">
+    next
+    </button>
+
+    <p id="optu"></p>
+
+    <div class="container card border-3 p-3 container-fluid border-lg bg-secondary">
+    <h2 id="cbum"></h2>
+    <ol>
+    <input type="radio" name="man"> <b id="inpo1"></b><br>
+    <input type="radio" name="man"><b id="inpo2"></b><br>
+    <input type="radio" name="man"><b id="inpo3"></b><br>
+    <input type="radio" name="man"><b id="inpo4"></b><br>
+</ol>
+    <div class="d-flex justify-content-between">
+        <button id="mybtn1" class="btn  btn-danger w-25"onclick="prov()" disabled>Previous</button>
+        <button id="mybtn2" class="btn btn-warning w-25" onclick="noxt()" disabled>Next</button>
+    </div>
+  
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<script>
+    
+    let inpo1 = document.getElementById("inpo1");
+    let inpo2 = document.getElementById("inpo2");
+    let inpo3 = document.getElementById("inpo3");
+    let inpo4 = document.getElementById("inpo4");
+    let dispo = document.getElementById("dispo");
+    let cbum = document.getElementById("cbum");
+    let optu= document.getElementById("optu")
+    let mybtn1 = document.getElementById("mybtn1")
+    let mybtn2 = document.getElementById("mybtn2")
+
+
+
+   let text = [ {info: "1. Javascript is a scripting language"}, {info:"2. css is used to style the html page"} ];
+    let ind = 0;
+    let cbt = [
+        {
+            question:"1. What is your favourite foood",
+            option: [" Rice", " Beans", " Yam", " Spag"]
+        },
+        {
+            question: "2. What is your favourite colour",
+            option: [" Blue", " Red", " white", " black"],
+        },
+        {
+            question:"3. What is your name",
+            option: [" Sammy", " Teni", " Bola", " Kola"],
+        },
+        {
+            question:"4. What is your favourite sport",
+            option: [" Football", " Baseball", " Tennis", " Track"]
+        },
+        {
+            question: "5. Which one of these is not a country",
+            option: ["Niger", "Morrocco", "London", "Egypt"]
+        },
+        {
+            question: "6. What is your best music genre",
+            option: ["Hip-Hop", "Jazz", "Afro-Beat", "Amapioano"]
+        },
+        {
+            question: "7. Which one of these is not a phone company",
+            option: ["Crocs", "Apple", "Xioami", "RedMagic"]
+        }
+
+    ]
+
+        cbum.innerHTML = `${cbt[0].question} `
+        inpo1.innerHTML = `${cbt[0].option[0]}`
+        inpo2.innerHTML = `${cbt[0].option[1]}`
+        inpo3.innerHTML = `${cbt[0].option[2]}`
+        inpo4.innerHTML = `${cbt[0].option[3]}`
+        let curo = 0;
+        if(curo == 0){
+            mybtn2.disabled = false;
+        }
+
+        function noxt (){
+            if(curo == cbt.length - 2){
+                mybtn2.disabled = true;
+                console.log(cbt.length)
+            }
+            else{
+                mybtn2.disabled = false;
+            }
+            mybtn1.disabled = false
+            curo++
+            cbum.innerHTML = `${cbt[curo].question}`
+            inpo1.innerHTML = `${cbt[curo].option[0]}`
+            inpo2.innerHTML = `${cbt[curo].option[1]}`
+            inpo3.innerHTML = `${cbt[curo].option[2]}`
+            inpo4.innerHTML = `${cbt[curo].option[3]}` 
+            // console.log(cbt.length)
+           
+        }
+
+        function prov(){
+            if(curo == 1){
+                mybtn1.disabled = true;
+                mybtn2.disabled = false;
+            }
+            else if(curo == 1){
+                mybtn1.disabled = false;
+                mybtn2.disabled = false;
+            }
+            mybtn2.disabled = false;
+            curo--
+            cbum.innerHTML = `${cbt[curo].question}`
+            cbum.innerHTML = `${cbt[curo].question}`
+            inpo1.innerHTML = `${cbt[curo].option[0]}`
+            inpo2.innerHTML = `${cbt[curo].option[1]}`
+            inpo3.innerHTML = `${cbt[curo].option[2]}`
+            inpo4.innerHTML = `${cbt[curo].option[3]}`
+        }
+
+        dispo.innerHTML = text[0]
+        dispo.innerHTML = `${text[ind].info}`
+        function next(){
+            ind = (ind + 1) % text.length
+            dispo.innerHTML = `${text[ind].info}`
+        }
+        function prev(){
+            ind--
+            if(ind == -1){
+                ind = text.length - 1
+                dispo.innerHTML = text[ind].info 
+            }
+            else{
+                dispo.innerHTML = text[ind].info
+            }
+        }
+</script>
+</html>

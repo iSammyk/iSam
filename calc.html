@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        body{
+            background-color: rgb(49, 43, 43);
+        }
+    .space{
+        height: 15vh;
+        /* background-color: ; */
+        float: right;
+        text-align: right;
+    }
+    .mc{
+        display: flex;
+        height: 3vh;
+        justify-content: space-around;
+        align-items: center;
+        margin-bottom: 2%;
+    }
+    .mc button{
+        background-color: transparent;
+        border: none;
+
+    }
+    
+    </style>
+</head>
+<body>
+    <div class="container-md card shadow-lg my-5 w-25 p-4" style="height: 80vh;">
+        <h6 class="text-left px-2 display-7 text-muted">Standard</h6>
+        <div class="space">
+            <p id="ram1"></p>
+            <h5 id="ram2"></h5>
+        </div>
+        <div class="mc">
+            <button>MC</button> <button>MR</button> 
+            <button>M+</button><button>M-</button><button>MS</button><button>M▾</button> 
+        </div>
+        <div>
+            <button class="bttn btn btn-dark mx-2 my-1 w-25" onclick="Symbel('%')">%</button>
+            <button class="bttn btn btn-dark mx-2 my-1 w-25" onclick="">CE</button>
+            <button class="bttn btn btn-dark mx-2 my-1 w-25" onclick="clearResult()">C</button>
+            <button class="bttn btn btn-dark mx-2 my-1 w-25" onclick="Symbel ('x')">x</button>
+            <button class="bttn btn btn-dark mx-2 my-1 w-25" onclick="">⅓</button>
+            <button class="bttn btn btn-dark mx-2 my-1 w-25" onclick="Symbel ('²')">x²</button>
+            <button class="bttn btn btn-dark mx-2 my-1 w-25" onclick="display(7)">7</button>
+            <button class="bttn btn btn-dark mx-2 my-1 w-25" onclick="display (8)">8</button>
+            <button class="bttn btn btn-dark mx-2 my-1 w-25" onclick="display (9)">9</button>
+            <button class="bttn btn btn-dark mx-2 my-1 w-25" onclick="display (4)">4</button>
+            <button class="bttn btn btn-dark mx-2 my-1 w-25" onclick="display (5)">5</button>
+            <button class="bttn btn btn-dark mx-2 my-1 w-25" onclick="display (6)">6</button>
+            <button class="bttn btn btn-dark mx-2 my-1 w-25" onclick="display (1)">1</button>
+            <button class="bttn btn btn-dark mx-2 my-1 w-25" onclick="display (2)">2</button>
+            <button class="bttn btn btn-dark mx-2 my-1 w-25" onclick="display (2)">3</button>
+            <button class="bttn btn btn-dark mx-2 my-1 w-25" onclick="display (0)">0</button>
+            <button class="bttn btn btn-dark mx-2 my-1 w-25" onclick="Symbel('-')">-</button>
+            <button class="bttn btn btn-dark mx-2 my-1 w-25" onclick="Symbel('/')">/</button>
+            <button class="bttn btn btn-dark mx-2 my-1 w-25" onclick="display ('00')">00</button>
+            <button class="bttn btn btn-dark mx-2 my-1 w-25" onclick="Symbel('+')">+</button>
+            <button class="bttn btn btn-primary mx-2 my-1 w-25" onclick="result(symbol)">=</button>
+        </div>   
+
+    </div>   
+</body>
+<script>
+
+
+    let result1 = document.getElementById("ram1");
+    let result2 = document.getElementById("ram2");
+    let value1 = ""
+    let value2 = ""
+    let symbol = ""
+
+    function display(num) {
+        result2.innerHTML += num
+        value1 += num
+    }
+
+    function Symbel (num2){
+        result2.innerHTML += num2
+        value2 = value1
+        value1 = ""
+        symbol = num2
+    }
+ 
+    function clearResult(){
+        result2.innerHTML=""
+        result1.innerHTML = ""
+        value1 = ""
+        value2 = ""
+    }
+
+  function result(symbol){
+    if (symbol === '+'){
+        results = Number(value2) + Number(value1)
+        result1.innerHTML = results;
+        value1 = results
+    }
+ 
+
+  else if (symbol === '/'){
+    results = Number(value2) / Number(value1)
+    result1.innerHTML = results
+  }
+
+  else if (symbol ==='x'){
+    results = Number(value2) * Number(value1)
+    result1.innerHTML = results
+  }
+
+  else if (symbol ==='-'){
+    results = Number(value2) - Number(value1)
+    result1.innerHTML = results
+  }
+  else if (symbol ==='²'){
+    results = Number(value2) * Number(value2)
+    result1.innerHTML = results
+  }
+  else if (symbol === '%')
+  results = Number(value2) / 100
+  result1.innerHTML = results
+}
+
+
+
+
+
+
+
+
+
+// let result1 = document.getElementById("ram1")
+// let result2 = document.getElementById("ram2")
+
+// let value1 = ""
+// let value2 = ""
+// let symbol = ""
+
+// function display(num){
+//     result2.innerHTML += num
+//     value1 += num
+// }
+// function symbel(num2){
+//     result2.innerHTML += num2
+//     value2 = value1
+//     value1 = ""
+//     symbol = num2
+// }
+
+
+
+// function reslt(symbol){
+//     if (symbol === '+'){
+//         result = Number(value2) + Number(value1)
+//         result2.innerHTML  = result
+//     }
+// }
+
+    // function showResult (){
+    //     if (operator2 ==="+"){
+    //     result1.innerHTML = Number(operator) + Number(operator2)
+    //     result1 = result1.innerHTML
+    //     }
+    // }
+
+      // var input1 = ""
+    // let input2 = ""
+    // let Symbol = ""
+    // var result = ""
+
+    // let show = document.getElementById("scren");
+    // let show2 = document.getElementById("tems")
+    // var input1 = ""
+    // let input2 = ""
+    // let Symbol = ""
+    // var result = ""
+
+    // function display(operator) {
+    //     show.innerHTML += operator
+    //     input1 += operator
+    // }
+
+    // function Symbol(equal){
+    //     show.innerHTML += equal
+    //     input2 = input1
+    //     input1 = ""
+    //     symb = equal
+    // }
+
+    // function result(baller){
+    //     if (baller === '+'){
+    //         result = Number(input2) + Number(input1)
+    //     }
+    // }
+
+</script>
+</html>

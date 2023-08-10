@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+        table, thead, tr, th, td{
+            border: solid;
+            border-collapse: collapse;
+            margin-bottom: 4%;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="my-3 text-success" >Finally!! Welcome Here!!</h1>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Class</th>
+                    <th>Hobbies</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                
+            </tbody>
+        </table>
+
+        <button onclick="minus()">-</button>
+        <span id="fig"></span>
+        <button onclick="plus()">+</button>
+
+
+        <img id="dispimg" alt="" style="width: 50%;">
+        <button class="bttn btn btn-dark" onclick="prev()">previous</button>
+        <button class="bttn btn btn-success" onclick="next()">next</button>
+    </main>
+
+</body>
+</html>
+<script>
+
+    let img = ["bitcoin.jpg", "Asus X550CA-6gb 1tb.jpg", "apple-payyy.jpg", "apple-iphone-xr.jpg",]
+    let dispimg = document.getElementById("dispimg")
+    dispimg.src = img[0]
+    let curindex = 0;
+
+    function next(){
+        curindex = (curindex + 1) %img.length       
+        console.log(curindex)
+        dispimg.src = img[curindex]
+    }
+
+    function prev(){
+        curindex --
+        if (curindex == -1){
+            curindex = img.length - 1
+            console.log(curindex)
+            dispimg.src = img[curindex]
+        }
+        else{
+            dispimg.src = img[curindex]
+        }     
+    }
+
+
+
+    let num = 0;
+    fig.innerHTML = num;
+
+    function plus(){
+        // num++
+         if(num <= 10 ){
+         fig.innerHTML = num++
+         }
+    }
+    function minus(){
+        if(num >= 0){
+        fig.innerHTML = num--
+        }
+    }
+
+
+    let tbody = document.getElementById("tbody")
+    let info = {
+        name: "Daniel",
+        age: 3,
+        class: "HTML",
+        hobbies: ["Swimming", "Singing", "Sleeping", "Eating"]
+    }
+
+    tbody.innerHTML = `
+    <tr>
+        <td> ${info.name}</td> 
+        <td> ${info.age}</td>
+        <td> ${info.class}</td>
+        <td> ${info.hobbies}</td>
+    `
+
+</script>

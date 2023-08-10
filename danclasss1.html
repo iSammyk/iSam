@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Guessing Game</h1>
+    <input id="pur" type="number">
+    <button onclick="checkk()">check</button>
+
+    <hr>
+    <br>
+
+    <h1>Recharge card number</h1>
+    <div>
+        <label for="">Select Network</label>
+        <select name="" id="network">
+            <option value="MTN">MTN</option>
+            <option value="AIRTEL">AIRTEL</option>
+            <option value="9MOBIME">9MOBILE</option>
+            <option value="GLO">GLO</option>
+        </select>
+
+        <label for="">Select number</label>
+        <select name="" id="amount">
+            <option value="100">100</option>
+            <option value="200">200</option>
+            <option value="500">500</option>
+            <option value="1000">1000</option>
+        </select>
+
+        <button onclick="generate()">Generate airtime</button>
+        <hr>
+        <h1>Load airtime</h1>
+        <label for="">for MTN</label>
+        <input type="text">
+        <button>Load airtime</button>
+    </div>
+</body>
+</html>
+
+<script>
+    // Math.floor
+    // Math.random - Used to generate random numbers in JS
+    // let num = Math.floor(Math.random() * 10)
+    // console.log(num)
+    
+    // function checkk(){
+    // let input1 = document.getElementById("pur").value
+
+    //     if (input1 == num){
+    //     alert("you guessed right")
+    // }
+    // else{
+    //     alert("Wrong! try again")
+    // }
+
+    // }
+
+    function generate(){
+        let network1 = document.getElementById("network")
+        let amount = document.getElementById("amount")
+        let randnum = Math.floor(Math.random() * 100000);
+        // console.log(network1.value, "Network");
+        // console.log(amount.value, "Amount");
+
+        console.log(network1.value , "network")
+        // console.log(amount, "Amount")
+        console.log(randnum, "airtime")    
+    }
+</script>
