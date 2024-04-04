@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+    <main>
+     <div id="posts" class="container"></div>
+    </main>
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<script>
+    // CALLBACK
+    //ASYNC AND AWAIT
+    // FETCH ITS A JAVASCRIPT FUNCTION THAT ALLOWS COMMUNICATION WITH THE SERVER THROUGH THE API
+    // API (APPLICATION PROGRAMMING INTERFACE) THAT HOLDS INFORMATION OR MESSAGES FROM THE SERVER
+    //HTTTP METHODS
+    //JSON SERVER
+    // read about SOAP API and REST API & HTTP METHODS
+    //CASLL BACK FUNCTION IS A FUNCTION THAT ACCEPTS ANOTHER FUNCTION AS ITS ARGUEMRNT
+    // Javascript by default runs synchronously
+    // crud operation 
+    //HTTP is (hypertext transfer protocol) is an aplication-layer protocol for transmitting hypermedia documents, such as HTML. it was designed for  for communication between web browsers and web servers, but it can also be used for other purposes. HTTP follows a classical client-server model, with a client opening a connection to make a request, then waiting until it receives a response. HTTP is a stateless protocol, meaning that the server does not keep any data (state) between two requests.
+
+    //JSON Stands for javascript obhject notation, 
+
+    let post = []
+    let container = document.getElementById("posts")
+
+    let names  = ["David", "Daniel", "Victor"]
+    function displayname(){
+        names.forEach(el => {
+            document.body.innerHTML += el + "<br>"
+        });
+    }
+
+    addToName(displayname)
+
+    function addToName(dan){
+        setTimeout(() => {
+            names.push("Samuel")
+            dan()
+        }, 1000);
+    }
+
+    fetch('https://dummyjson.com/posts').then((res)=>res.json()).then((data)=>{post.push(data); displaypost()})
+    i = 0;
+    
+    function displaypost(){
+        post.forEach(poster => {
+            console.log(poster.posts);
+            poster.posts.forEach(pocc => {
+            console.log(pocc)
+            let postop = document.createElement("div");
+            postop.innerHTML = `<div class="container card my-2 w-50 bg-secondary"> <h2>${pocc.title}.</h2><p>${pocc.body}</p> </div>`;
+            container.appendChild(posttop);
+            });
+
+        });
+    }
+    
+</script>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body class="w-50 card mx-auto mt-4">
+    <form action="">
+        <input id="author" type="text" placeholder="author"> <br> <br>
+        <input id="title" type="text" placeholder="title">
+        <textarea name="" id="content" cols="30" rows="10" placeholder="what are you telling us today"></textarea>
+        <button onclick="addpost(event)"> Add post</button>
+
+        <div id="carry"></div>
+    </form>
+</body>
+</html>
+<script>
+    let author = document.getElementById("author")
+    let title = document.getElementById("title")
+    let content = document.getElementById("content")
+    let carry = document.getElementById("carry")
+    
+
+    function addpost(ev){
+        ev.preventDefault()
+        let info = {
+        author: author.value,
+        title: title.value,
+        content: content.value
+    } 
+    console.log(info)
+    fetch("http://localhost:1234/posts", {
+        method: "POST",
+        headers:{
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(info)
+    }).then((res)=>res.json()).then((info)=>{
+            console.log(info);
+      
+    }).catch((err =>{
+        console.log(err);
+    })) }
+
+    function fetchpost(){
+        fetch("http://localhost:1234/posts")
+        .then((res)=>res.json())
+        .then((info)=> {
+        console.log(info);
+        info.forEach(el => {       
+        console.log(el)
+        // let postop = document.createElement("div")
+        carry.innerHTML += `
+        <b>Author: ${el.author}</b>
+        <p>title: ${el.title}</p>
+        <h5> ${el.content}</h5>
+        `
+    //    carry.appendChild(postop);
+       });
+        })
+
+    }
+    fetchpost()
+
+</script>

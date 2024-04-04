@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+    body{
+        background-image: url(WhatsApp\ Image\ 2023-05-30\ at\ 15.23.54.jpeg); height: 100vh; width: 100%; opacity: 0.8;;
+        background-size: cover;
+        background-blend-mode: darken;
+        background-repeat:repeat-y;
+        background-position: center;
+        overflow: hidden;
+        background-blend-mode: darken;
+    }
+    #back{
+        background-color: rgba(255, 255, 255, 0.562);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-content: center;
+        margin-top: 2%;
+    }
+    .radio-txt{
+        background-color: rgb(255, 255, 255);
+        border-radius: 6px;
+    }
+    .radio {
+    font-size: 14px;
+    font-weight: 400;
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+    .radio input{
+    width: 15px;
+    height: 15px;
+    }
+    input[type="radio"]{
+    accent-color: green;
+    }
+    input[type="checkbox"]{
+    accent-color: green;
+    }
+</style>
+<body>
+    <div class=" container container-fluid pt-2  pb-5 text-center"style=" width:max-content; height: max-content; border-radius:50px;border:3px solid white;" id="back">
+        <h1 class="mx-auto text-success" style="text-shadow: 2px 2px black;">Sign up page</h1>
+        <input id="fname" class="form-control my-1 w-100" type="text" name="" placeholder="Full Name" id="">
+        <input id="fmail" class="form-control my-1 w-100" type="email" name="" placeholder="Email" id="">
+        <input id="dob" class="form-control my-1 w-100" type="date" name="" placeholder="DOB" id="">
+        <input id="nickname" class="form-control my-1 w-100" type="text" name="" placeholder="What would you like us to call you?" id="">
+
+        <div class="bg-white d-flex justify-content-between mb-1 w-100" style="width: inherit; border-radius: 5px;">
+         <input id="password1" class="input-box mt-1  w-100" type="password" name="" placeholder="Password" id="" style="background-color: transparent;border: none; outline: none;">
+         <img width="8%" src="eye-close.png" alt="" id="eyeicon">
+        </div>
+
+         <div class="bg-white d-flex justify-content-between w-100" style="width: inherit; border-radius: 5px;">
+         <input id="cpassword" class="input-box mt-1 w-100" type="password" name="" placeholder="Comfirm Password" id="" style="background-color: transparent;border: none; outline: none;">
+         <img width="8%" src="eye-close.png" alt="" id="eyeicons">
+        </div>
+        <div class="radio-txt  text-secondary mt-1 w-100">
+            <p>What's your gender?</p>
+            <div class="radio">
+                <span><input type="radio" name="gender" value="male">&nbsp;&nbsp;Male&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span><input type="radio" name="gender" value="female">&nbsp;&nbsp;Female&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span><input type="radio" name="gender" value="not-specified">&nbsp;&nbsp;Prefer not to say&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            </div>
+        </div>
+       
+
+     <a onclick="signup(event)" class="btn btn-success w-50 mt-5 mb-2 btn-fluid mx-auto active" role="button">Sign in</a>
+     <p>Already have an account? <a class="text-success" href="login2.html" >Log in</a></p>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+<script>
+let users = [];
+let fname = document.getElementById("fname");
+let nickname = document.getElementById("nickname");
+let fmail = document.getElementById("fmail");
+let password1 = document.getElementById("password1");
+let cpassword = document.getElementById("cpassword");
+let shows = document.getElementById("shows");
+
+
+let eyeicon = document.getElementById("eyeicon");
+let eyeicons = document.getElementById("eyeicons");
+
+        eyeicon.onclick = function(){
+            if(password1.type =="password"){
+                password1.type = "text";
+                eyeicon.src = "eye-open.png"
+            }else{
+                password1.type = "password";
+                eyeicon.src = "eye-close.png"
+            }
+        }
+        eyeicons.onclick = function(){
+            if(cpassword.type =="password"){
+                cpassword.type = "text";
+                eyeicons.src = "eye-open.png"
+            }else{
+                cpassword.type = "password";
+                eyeicons.src = "eye-close.png"
+            }
+        }
+        
+        function signup(ev){
+            ev.preventDefault();
+            let userdata = {
+                username: fname.value,
+                email: fmail.value,
+                nickname: nickname.value,
+                password: password1.value
+            }
+
+            users = JSON.parse(localStorage.getItem("users")) || [];
+    
+            users.push(userdata);
+    
+            localStorage.setItem("users", JSON.stringify(users));
+
+
+            if(fname.value ===''){
+                alert("input field cannot be empty")
+                return false
+            }
+            if (fmail.value === ''){
+                alert("input field cannot be empty")
+                return false
+            }
+            
+            if(password1.value ==='' || cpassword.value ===''){
+                alert("input field cannot be empty ");
+                return false
+            }
+            if (password1.value !== cpassword.value){
+                alert('password dont match')
+                return false
+            }
+            else{
+                users.push(userdata)
+                alert("Sign up successful")
+                window.location.href = "login2.html"
+            }
+          
+        }
+
+        //Code by iSammy😎
+
+</script>
+</html>

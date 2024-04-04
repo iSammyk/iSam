@@ -1,0 +1,320 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogging Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/8ac85c2cfe.js" crossorigin="anonymous"></script>
+
+</head>
+<style>
+       *{
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+    body{
+        background-image:linear-gradient(rgba(20, 20, 20, 0.726), rgba(15, 15, 15, 0.753)), url(office.webp); height: max-content; width: 100%; opacity: 0.8;;
+        background-size: cover;
+        background-blend-mode: darken;
+        background-repeat:no-repeat;
+        background-position: center;
+        overflow-x: hidden;
+        background-blend-mode: darken;
+        padding-bottom: 2%;
+        padding: 2% 0;
+    }
+    .btn {
+    margin: 5px;
+  }
+
+    #back{
+        background-color: rgba(255, 255, 255, 0.562);
+        display: flex;
+        flex-direction: column;
+        /* align-items: center; */
+        align-content: center;
+        margin-top: 4%;
+        width: 50%;
+        /* box-shadow: 7px 3px 6px 4px #257c52; */
+    }
+    ::placeholder{
+        color: #257c52;
+    }
+    .circle-image-container {
+    width: 80px;
+    height: 80px; 
+    border-radius: 50%; 
+    overflow: hidden;
+    display: inline-block; 
+    margin-right: 10px; 
+    margin-top: 4%;
+    margin: auto;
+    background-color: #257c52;
+}
+
+/* 
+  #imgReader {
+    width: 50%;
+    height: auto;
+    background-color: red;
+  } */
+
+
+h5, p {
+    font-size: 1.2rem;
+  }
+
+  body{
+    color: #fff;
+  }
+
+@media screen and(max-width: 976px) {
+    #back{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    #back{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 693px) {
+    #back{
+        width: 100%;
+    }
+}
+
+</style>
+<body>
+    <div class="container container-fluid pt-2  pb-5 shadow-success-lg"style="  height: max-content; border-radius:50px;border:6px solid white;" id="back">
+        <h5 class="m-3" style="text-shadow: 2px 4px 3px #257c52;">
+            Welcome to your Dashboard: <b id="username"></b>
+        </h5>
+        <div class="container container-fluid"style=" width:100%; display:flex; justify-content:space-evenly;">
+            <button class="btn btn-fluid btn-success" onclick="pblogs()"><i class="fa-regular fa-keyboard fa-lg" style="color: #eeeeee;"></i> Post a blog </button>
+            <button class="btn btn-fluid btn-success" onclick="vblogs()"><i class="fa-solid fa-blog fa-lg" style="color: #ffffff;"></i> All blogs</button>
+            <button class="btn btn-fluid btn-success" onclick="showLikedPosts()"><i class="fa-solid fa-thumbs-up fa-lg" style="color: #fafcff;"></i>All Likes</button>
+    </div>
+    <div class="container container-fluid mt-2" id="bad">
+
+    <div class="container-fluid container-fluid mt-2 w-100" id="man">
+        <input class="form-control my-2 " type="text" id="title" placeholder="Tittle">
+        <textarea class="outline-success bg-dark text-white mb-2" name="" id="textarea" cols="" rows="5" placeholder="Blog here" style="width: inherit; font-size: 20px; "></textarea>
+        <label class="text-white" for="FileReader">Attach an image</label> <br>
+        <input class="bg-success" onchange="pickfile(event)" type="file"> <br>
+        <img class="my-2" id="imgReader" width="100" height="100" alt="">
+        
+
+    </div>
+    <div class="container container-fluid w-100 mt-3">
+        <button class="btn btn-success" onclick="submit()">Submit</button>
+        <button class="btn btn-secondary" onclick="clearinp()">clear</button>
+    </div>
+</div>
+<div id="viewed" class="text-center text-dark container-fluid container-fluid w-75 bg-white my-4  h-50"  style="border-radius: 10px;">
+    <h1 id="the"></h1>
+    <p id="poe"></p>
+    <p id="writer"></p>
+    <p id="time"></p>
+    <hr>
+</div> 
+<div id="liked"  class="text-center text-dark container-fluid container-fluid w-75  bg-white my-4  h-50"  style="border-radius: 10px; display: none;"></div>
+<br>
+<div id="mop" class="container container-fluid text-center py-3" style="border-top: 3px solid #257c52; ">
+    <button class="btn btn-outline-danger" onclick="logout()">Log Out</button>
+</div>
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<script>
+      
+
+        let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if(currentUser == null){
+        window.location.href = "login2.html"
+    }
+
+
+
+        let username = document.getElementById("username");
+        let viewed = document.getElementById("viewed");
+        let liked = document.getElementById("liked");
+        let bad = document.getElementById("bad");
+        let title = document.getElementById("title");
+        let imgReader = document.getElementById("imgReader");
+        let textarea = document.getElementById("textarea");
+        let the = document.getElementById("the");
+        const date = new Date();
+        let posts = JSON.parse(localStorage.getItem("posts")) || [];
+
+       let postarray = JSON.parse(localStorage.getItem("postarray"))
+
+       console.log(currentUser)
+
+        let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+        username.innerHTML = currentUser.nickname;
+        viewed.style.display = "none";
+        liked.style.display = "none";
+
+       
+        function pickfile(ev){
+        let file = ev.target.files[0];
+        let reader = new FileReader();
+        reader.addEventListener("load", (e)=>{
+            console.log(e.target.result);
+            imgReader.src = e.target.result
+
+        })
+        if(file){
+            reader.readAsDataURL(file)
+        }
+        
+    }
+
+        function submit() {
+            let tweet ={
+                img: imgReader.src,
+                title: title.value,
+                textarea: textarea.value,
+                autor: currentUser.nickname,
+                isLiked: false,
+                time: new Date().toLocaleString(),
+                change: false
+            };
+
+            if (title.value === "" || textarea.value === "") {
+                alert("Please write a blog");
+            } else {
+                posts.push(tweet);
+                bad.style.display = "none";
+                viewed.style.display = "block";
+                liked.style.display = "none";
+                updateViewedPosts();
+            }
+            localStorage.setItem("posts", JSON.stringify(posts));
+
+        }
+       
+        
+
+        function updateViewedPosts() {
+            viewed.innerHTML = "";
+            for (let index = 0; index < posts.length; index++) {
+                let likeButton = `<button class="btn btn-success" onclick="like(${index})">Like</button>`;
+                if (posts[index].isLiked) {
+                    likeButton = `<button class="btn btn-warning" onclick="unlike(${index})">Unlike</button>`;
+                }
+                viewed.innerHTML += `
+                    <div class="blog-post container card">
+                     <div class="circle-image-container">
+                     <img src="${posts[index].img}" width="100" height="100" alt="">
+                   </div>                     
+                        <h1>${posts[index].title}</h1>
+                        <p>${posts[index].textarea}</p>
+                        <p>Author:${posts[index].autor}</p>
+                        <p>${posts[index].time}</p>
+                        <div class = "container d-flex w-75 justify-content-around">
+                        ${likeButton}
+                        <button class="btn btn-danger" onclick="deletePost(${index})">Delete</button>
+                    </div>   </div> 
+                `;
+                
+            }
+          
+        }
+
+        function showLikedPosts() {
+            let likedPosts = posts.filter(post => post.isLiked);
+            let likedSection = document.getElementById("liked");
+            liked.innerHTML = "";
+            for (let index = 0; index < likedPosts.length; index++) {
+             
+                liked.innerHTML += `
+                    <div class="blog-post container card">
+                     <div class="circle-image-container">
+                     <img id="came" src="${likedPosts[index].img}" width="100" height="100" alt="">
+                    </div> 
+                        <h1>${likedPosts[index].title}</h1>
+                        <p>${likedPosts[index].textarea}</p>
+                        <p>Author:${likedPosts[index].autor}</p>
+                        <p>${likedPosts[index].time}</p>
+                        <div class = "container d-flex w-75 justify-content-around">
+                        <button class="btn btn-warning" onclick="unlike(${posts.indexOf(likedPosts[index])})">Unlike</button>
+                        <button class="btn btn-danger" onclick="deletePost(${posts.indexOf(likedPosts[index])})">Delete</button> </div> 
+                    </div>
+                `;
+            }
+            viewed.style.display = "none";
+            liked.style.display = "block";
+            bad.style.display = "none";       
+        }
+       
+
+        function like(index) {
+            posts[index].isLiked = true;
+            updateViewedPosts();
+            // showLikedPosts();
+            localStorage.setItem("posts", JSON.stringify(posts));
+
+        }
+
+        function unlike(index) {
+            posts[index].isLiked = false;
+            // showLikedPosts();
+            updateViewedPosts();
+            localStorage.setItem("posts", JSON.stringify(posts));
+        }
+
+        function deletePost(index) {
+            posts.splice(index, 1);
+            updateViewedPosts();
+            localStorage.setItem("posts", JSON.stringify(posts));
+
+
+        }
+        function deleteFromLiked(index) {
+        likedPosts.splice(index, 1);
+        showLikedPosts();
+}
+
+      
+
+    function pblogs() {
+        viewed.style.display = "none";
+        liked.style.display = "none";
+        bad.style.display = "block";
+        title.value = "";
+        textarea.value = "";
+        imgReader.src = ""; 
+        // pickfile()
+    }
+
+
+        function vblogs() {
+            bad.style.display = "none";
+            liked.style.display = "none";
+            viewed.style.display = "block";
+            updateViewedPosts();
+        
+            console.log(posts)
+        }
+
+        function clearinp(){
+            title.value = "";
+            textarea.value = "";
+        }
+        function logout(){
+            let gone = null
+            localStorage.removeItem("currentUser")
+            window.location.href = "login2.html"
+        }
+
+        //Code by iSammy😎
+    </script>
+</body>
+</script>
+</html>

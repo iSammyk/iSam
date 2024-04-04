@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main id="main">
+        <button onclick="check()">cick me</button>
+        <p id="mytext"></p>
+    </main>
+</body>
+</html>
+<script>
+    let main = document.getElementById("main")
+    let mytext = document.getElementById("mytext")
+
+    function check(){
+    let usertext =  prompt("Please type in a sentence")
+    mytext.innerHTML += `your string to uppercase is ${usertext.toLocaleUpperCase()} <br>`
+    mytext.innerHTML += `your string to lowercase  is ${usertext.toLocaleLowerCase()} <br>`
+    mytext.innerHTML += `your string to lenght  is ${usertext.length} <br>`
+    mytext.innerHTML += `the index of A in your string is ${usertext.indexOf("a")} <br>`
+    }
+</script>

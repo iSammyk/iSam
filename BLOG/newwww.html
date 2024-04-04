@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</head>
+<body>
+    <main>
+        <h2 id="title"></h2>
+        <div id="content"></div>
+    </main>
+</body>
+</html>
+<script>
+    let titleElement = document.getElementById("title");
+    let contentElement = document.getElementById("content");
+    let post =[]
+    let i = 0
+    let names  = ["David", "Daniel", "Victor"];
+    function displayNames() {
+        names.forEach(el => {
+            document.body.innerHTML += el + "<br>";
+        });
+    }
+
+    addToName(displayNames);
+
+    function addToName(dan) {
+        setTimeout(() => {
+            names.push("Samuel");
+            dan();
+        }, 1000);
+    }
+
+    fetch('https://dummyjson.com/posts')
+        .then((res) => res.json())
+        .then((data) => {
+            post.push(data);
+            displayPost();
+        });
+
+    function displayPost() {
+        post.forEach(postData => {
+            titleElement.innerHTML += postData.posts[i].title;
+
+            postData.posts.forEach(postItem => {
+                const postContainer = document.createElement("div");
+                const postTitle = document.createElement("h3");
+                const postBody = document.createElement("p");
+
+                postTitle.textContent = postItem.title;
+                postBody.textContent = postItem.body;
+
+                postContainer.appendChild(postTitle);
+                postContainer.appendChild(postBody);
+                contentElement.appendChild(postContainer);
+            });
+        });
+    }
+</script>
